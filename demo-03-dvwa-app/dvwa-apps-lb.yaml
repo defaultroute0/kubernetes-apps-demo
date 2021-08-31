@@ -6,6 +6,8 @@ metadata:
     app: avi-gslb
 spec:
   type: LoadBalancer
+  externalIPs:
+  - 172.16.10.51
   ports:
   - name: http
     port: 80
