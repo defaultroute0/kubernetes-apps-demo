@@ -10,7 +10,7 @@ spec:
   - 172.16.10.51
   ports:
   - name: http
-    port: 80
+    port: 8080
     targetPort: 80
   selector:
     app: dvwa-apps
