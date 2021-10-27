@@ -1,0 +1,13 @@
+apiVersion: amko.vmware.com/v1alpha1
+kind: GSLBHostRule
+metadata:
+  name: gslbhostrule
+spec:
+  fqdn: hello.lb.lab01.one
+  trafficSplit:
+  - cluster: tkgm-guest1-admin@tkgm-guest1
+    weight: 4
+  - cluster: tkgm-guest2-admin@tkgm-guest2
+    weight: 1
+  ttl: 1
+
