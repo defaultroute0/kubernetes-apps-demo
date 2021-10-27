@@ -8,5 +8,5 @@ https://docs.hol.vmware.com/HOL-2021/hol-2137-03-net_html_en/
 SQL Injection
 %' or 0=0 union select null, version() #
 
-Cross Site Scripting
+Cross Site Scripting - XSS (Stored)
 <script>alert("XSS Exploit Test")</script>
