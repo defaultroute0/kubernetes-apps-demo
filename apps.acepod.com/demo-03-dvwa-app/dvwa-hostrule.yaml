@@ -1,0 +1,10 @@
+apiVersion: ako.vmware.com/v1alpha1
+kind: HostRule
+metadata:
+  name: dvwa-hostrule
+  namespace: dvwa-apps
+spec:
+  virtualhost:
+    fqdn: dvwa.apps.acepod.com
+    enableVirtualHost: true
+    wafPolicy: System-WAF-Policy
