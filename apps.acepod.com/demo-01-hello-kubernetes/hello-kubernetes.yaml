@@ -47,10 +47,10 @@ metadata:
 spec:
   tls:
   - hosts:
-      - hello.apps.acepod.com
+      - hello.apps.corp.local
     secretName: hello-ingress-tls
   rules:
-  - host: hello.apps.acepod.com
+  - host: hello.apps.corp.local
     http:
       paths:
       - path: /
