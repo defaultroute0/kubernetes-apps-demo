@@ -1,0 +1,67 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-kubernetes
+  namespace: hello
+  labels:
+    app: avi-gslb
+spec:
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+  selector:
+    app: hello-kubernetes
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-kubernetes
+  namespace: hello
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: hello-kubernetes
+  template:
+    metadata:
+      labels:
+        app: hello-kubernetes
+    spec:
+      containers:
+      - name: hello-kubernetes
+        image: paulbouwer/hello-kubernetes:1.5
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+      imagePullSecrets:
+      - name: regcred
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+#apiVersion: networking.k8s.io/v1
+#kind: Ingress
+metadata:
+  name: hello-kubernetes-ingress
+  namespace: hello  
+  annotations:
+    certmanager.k8s.io/cluster-issuer: letsencrypt
+  labels:
+    app: avi-gslb
+spec:
+  tls:
+  - hosts:
+      - hello.apps.acepod.com
+    secretName: hello-ingress-tls
+  rules:
+  - host: hello.apps.acepod.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: hello-kubernetes
+            port:
+              number: 80
